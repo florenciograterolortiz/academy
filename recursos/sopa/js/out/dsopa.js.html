@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: dsopa.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: dsopa.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var controller;
+var select = false;
+var cellFromTo = [
+  [0, 0],
+  [0, 0]
+];
+
+$(document).ready(function() {
+  controller = Object.create(dsopa);
+  controller.genTable();
+  controller.loadWords(dsopa.choseWords());
+  controller.fillEmptyCells();
+  controller.probabilityWords();
+
+  $('td').mousedown(function(e) {
+    select = true;
+    var col = $(this).attr('data-col');
+    var row = $(this).attr('data-row');
+    e.preventDefault();
+    cellFromTo[0] = [parseInt(col), parseInt(row)];
+  });
+
+  $('td').mousemove(function(e) {
+    if (select) {
+      var col = $(this).attr('data-col');
+      var row = $(this).attr('data-row');
+      cellFromTo[1] = [parseInt(col), parseInt(row)];
+      controller.select(cellFromTo);
+    }
+  });
+
+  $('td').mouseup(function(e) {
+    select = false;
+    var col = $(this).attr('data-col');
+    var row = $(this).attr('data-row');
+    cellFromTo[1] = [parseInt(col), parseInt(row)];
+    controller.isGood(controller.select(cellFromTo));
+    $('.bl').removeClass('selected');
+  });
+});
+
+/**
+ * Objeto que tiene la logica de la sopa de letras.
+ * @class
+ */
+var dsopa = {
+  palabras: [
+    'SOL', 'PICANTE', 'RIZOS',
+    'DESVAN', 'REGAR', 'CONMOCION',
+    'JET', 'COLONIA', 'PIZZA',
+    'TEST', 'VENTOSO', 'ENCERRAR'
+  ],
+
+  palabrasToFind: [],
+
+  // "final static attributes"
+  finalY: 10,
+  finalX: 10,
+  finalNPalabras: 5,
+
+  /**
+   * Carga la tabla con la proporcion indicada.
+   */
+  genTable: function() {
+    $('.sopa tbody').empty();
+    for (var c1 = 0; c1 &lt; this.finalY; c1++) {
+      $('.sopa tbody').append('&lt;tr>');
+      for (var c2 = 0; c2 &lt; this.finalX; c2++)
+        $('.sopa tbody').append('&lt;td data-row="' + c1 + '" data-col="' + c2 + '" class="bl">&lt;/tr>');
+      $('.sopa tbody').append('&lt;/td>');
+    }
+  },
+
+  /**
+   * Seleciona un numero de palabras que usar en la sopa de letras.
+   * @return {array} palabrasRandom - Palabras que utilizaremos.
+   */
+  choseWords: function() {
+    var palabrasRandom = [];
+    for (var c = 0; c &lt; this.finalNPalabras; c++) {
+      var n = Math.floor(Math.random() * this.palabras.length);
+      palabrasRandom.push(this.palabras[n]);
+      this.palabrasToFind.push(this.palabras[n]);
+      this.palabras.splice(n, 1);
+    }
+
+    return palabrasRandom;
+  },
+
+  /**
+   * Determina si las palabras estaran en horizontal o no.
+   * @param {array} list - Palabras que determinar.
+   */
+  loadWords: function(list) {
+    do {
+      switch (Math.floor(Math.random() * 2)) {
+        case 0:
+          this.setWord(list.pop(), true);
+          break;
+        case 1:
+          this.setWord(list.pop(), false);
+          break;
+      }
+    }
+    while (list.length != 0);
+  },
+
+  /**
+   * Mira que la palabra se puede poner, si puede la inserta.
+   * @param {string} palabra - palabra para poner.
+   * @param {boolean} vertical - indica si es vertical.
+   */
+  setWord: function(palabra, vertical) {
+    var x, y, n, c = 0;
+    var b = false;
+    do {
+      b = false;
+      vertical = c == 20 ? false : true;
+      if (vertical == true) {
+        x = Math.floor(Math.random() * this.finalX);
+        y = Math.floor(Math.random() * ((this.finalY + 1) - palabra.length));
+      } else {
+        x = Math.floor(Math.random() * ((this.finalX + 1) - palabra.length));
+        y = Math.floor(Math.random() * this.finalY);
+      }
+
+      for (n = 0; n &lt; palabra.length; n++) {
+        if (b == true) break;
+        if (vertical == true)
+          b = $('.bl').eq(x + (y + n) * 10).html() == '' ? false : true;
+        else
+          b = $('.bl').eq((x + n) + y * 10).html() == '' ? false : true;
+      }
+      c++;
+    } while (b);
+
+    for (n = 0; n &lt; palabra.length; n++) {
+      if (vertical == true)
+        $('.bl').eq(x + (y + n) * 10).html(palabra.charAt(n).toUpperCase());
+      else
+        $('.bl').eq((x + n) + y * 10).html(palabra.charAt(n).toUpperCase());
+    }
+  },
+
+  /**
+   * Rellena los sitios en los que no tenemos palabras con letras aleatorias.
+   */
+  fillEmptyCells: function() {
+    for (var n = 0; n &lt; $('.bl').length; n++)
+      if ($('.bl').eq(n).html() == '') $('.bl').eq(n).append(String.fromCharCode(Math.floor(Math.random() * 26 + 65)));
+  },
+
+  /**
+   * Muestra al usuario las palabras restantes.
+   */
+  probabilityWords: function() {
+    for (var n = 0; n &lt; this.palabrasToFind.length; n++)
+      $('#palabras').append(this.palabrasToFind[n] + '&lt;br/>');
+  },
+
+  /**
+   * Marca las letras que seleccionamos.
+   * @param {array} cellsSelected - Cassilla inicial y final.
+   * @return {string} palabra - palabra para verificar.
+   */
+  select: function(cellsSelected) {
+    var cells = jQuery.extend(true, {}, cellsSelected);
+    var palabra = '';
+
+    if (cells[0][0] == cells[1][0]) {
+      if (cells[0][1] &lt; cells[1][1]) {
+        for (; cells[0][1] &lt;= cells[1][1]; cells[0][1]++)
+          palabra += $('.bl').eq(cells[1][0] + cells[0][1] * this.finalX).addClass('selected').html();
+      } else {
+        for (; cells[0][1] >= cells[1][1]; cells[0][1]--)
+          palabra += $('.bl').eq(cells[0][0] + cells[0][1] * this.finalX).addClass('selected').html();
+      }
+    } else if (cells[0][1] == cells[1][1]) {
+      if (cells[0][0] &lt; cells[1][0]) {
+        for (; cells[0][0] &lt;= cells[1][0]; cells[0][0]++)
+          palabra += $('.bl').eq(cells[0][0] + cells[0][1] * this.finalX).addClass('selected').html();
+      } else {
+        for (; cells[0][0] >= cells[1][0]; cells[0][0]--)
+          palabra += $('.bl').eq(cells[0][0] + cells[0][1] * this.finalX).addClass('selected').html();
+      }
+    }
+
+    return palabra;
+  },
+
+  /**
+   * Verifica si la palabra esta en la lista.
+   * @param {string} palabra - Palabra a verificar.
+   */
+  isGood: function(palabra) {
+    if (jQuery.inArray(palabra, this.palabrasToFind) >= 0) {
+      if (cellFromTo[0][0] == cellFromTo[1][0]) {
+        if (cellFromTo[0][1] &lt; cellFromTo[1][1]) {
+          for (; cellFromTo[0][1] &lt;= cellFromTo[1][1]; cellFromTo[0][1]++)
+            $('.bl').eq(cellFromTo[1][0] + cellFromTo[0][1] * this.finalX).addClass('good');
+        } else {
+          for (; cellFromTo[0][1] >= cellFromTo[1][1]; cellFromTo[0][1]--)
+            $('.bl').eq(cellFromTo[0][0] + cellFromTo[0][1] * this.finalX).addClass('good');
+        }
+      } else if (cellFromTo[0][1] == cellFromTo[1][1]) {
+        if (cells[0][0] &lt; cells[1][0]) {
+          for (; cellFromTo[0][0] &lt;= cellFromTo[1][0]; cellFromTo[0][0]++)
+            $('.bl').eq(cellFromTo[0][0] + celcellFromTols[0][1] * this.finalX).addClass('good');
+        } else {
+          for (; cellFromTo[0][0] >= cellFromTo[1][0]; cellFromTo[0][0]--)
+            $('.bl').eq(cellFromTo[0][0] + cellFromTo[0][1] * this.finalX).addClass('good');
+        }
+      }
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="dsopa.html">dsopa</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Apr 10 2016 00:19:38 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

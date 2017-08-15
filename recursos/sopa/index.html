@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sopa | Software PHP</title>
+  <script src="./js/jquery-2.2.1.min.js"></script>
+  <script src="./js/dsopa.js"></script>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <!-- Bootstrap -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+</head>
+
+<body>
+<audio src="http://localhost/software/recursos/musica.mp3" autoplay="true"></audio>
+  <div class="container"> 
+
+    <br>
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="col-xs-12 col-sm-12 img-header">
+          
+        </div>
+      </div>
+
+      <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Sistema PHP</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="http://localhost/software/">Inicio</a></li>
+            <li><a href="http://localhost/software/concepto.php">Contenido</a></li>
+            <li><a href="#" title="" data-toggle="modal" data-target=".bs-example-modal-lg">PHP</a></li>
+            <li><a href="#" title="" data-toggle="modal" data-target=".bs-example-modal-lgw">Instalación</a></li>
+            <li><a href="#" title="" data-toggle="modal" data-target=".bs-example-modal-lg2">Variables</a></li>
+            <li><a href="#" title="" data-toggle="modal" data-target=".bs-example-modal-lg4">Operadores</a></li>
+            <li><a href="#" title="" data-toggle="modal" data-target=".bs-example-modal-lgcondi">Condicionales</a></li>
+            <li><a href="http://localhost/software/preguntas.php" title="">Evaluación</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extra <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://localhost/software/pdf.php">Material PDF</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://localhost/software/videos.php">Videos</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://localhost/software/recursos/ahorcado/index.html">El ahorcado</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://localhost/software/recursos/sopa/index.html" title="">Sopa de letras</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="http://localhost/software/pack.php">Programas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <div id="info">
+          <img src="" alt="null" height="0" width="0"/><div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <table class="table table-bordered sopa">
+          <thead>
+            <th colspan="10">
+              Sopa de letras
+            </th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <div id="palabras">
+          <strong>Palabras por buscar:</strong><br/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <div id="box">    
+  </div>
+
+<!--Modal video php-->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video introducción PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/que_es_php.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video php-->
+
+    <!--Modal video variable-->
+    <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video variables PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/variables.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video-->
+
+    <!--Modal video constantes-->
+    <div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel3">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video constantes PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/constantes.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video-->
+
+    <!--Modal video operadores-->
+    <div class="modal fade bs-example-modal-lg4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel4">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video operadores PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/operadores.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video-->
+
+    <!--Modal video wanserver-->
+    <div class="modal fade bs-example-modal-lgw" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabelw">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video instalación PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/wampserver.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video-->
+    
+    <!--Modal video wanserver-->
+    <div class="modal fade bs-example-modal-lgcondi" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabelw">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">video condicionales PHP </h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <video controls width="100%">
+                  <source src="http://localhost/software/recursos/videos/condicionales.mp4" type="video/mp4;">
+                  Tu navegador no implementa el elemento <code>video</code>.
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal video-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript"> $(function () { $('[data-toggle="tooltip"]').tooltip() }); </script>
+</body>
+</html>
